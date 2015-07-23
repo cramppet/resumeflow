@@ -1,0 +1,35 @@
+doctype html
+html(lang="en")
+	include ../../partials/head.jade
+	body
+		include ../../partials/nav.jade
+			
+		div(class="container")
+			include ../../partials/title.jade
+
+			if message.length > 0
+				div(class="alert alert-danger" role="alert")
+					p= message
+			else
+				div(class="alert alert-info" role="alert")
+					p
+						| Contact your IT administrator if you do not have any log in
+						| credentials!
+
+			div(class="row")
+				div(class="col-md-6 col-md-offset-3")
+					div(class="thumbnail")
+						img(src="img/locked.jpg" alt="Please Log In")
+						div(class="caption")
+							h3 Please Log In to ResumeFlow
+							form(action="/login" method="post")
+								.input-group.input-group-lg
+								input.form-control(type="text", placeholder="Email", name="email")
+
+								.input-group.input-group-lg
+								input.form-control(type="password", placeholder="Password" name="password")
+
+								.input-group.input-group-lg
+								input.form-control(type="submit" class="btn btn-success" value="Log In")
+
+		include ../../partials/footer.jade

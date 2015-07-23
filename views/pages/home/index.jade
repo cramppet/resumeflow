@@ -1,0 +1,80 @@
+doctype html
+html(lang="en")
+	include ../../partials/head.jade
+	body
+		include ../../partials/nav.jade
+							
+		div(class="container")
+			include ../../partials/title.jade
+
+			if message && message.length > 0
+				div(class="alert alert-danger" role="alert")
+					p= message
+
+			div(class="panel panel-primary panel-top-margin panel-bottom-margin")
+				div(class="panel-heading")
+					h3(class="panel-title") Welcome to ResumeFlow!
+				div(class="panel-body")
+					p
+						| ResumeFlow is an application which simplifies the management and
+						| collection of resumes of prospective canidates. ResumeFlow allows
+						| users to enter resume records into the ResumeFlow database and
+						| then perform search queries which allow for organizations to
+						| improve their ability to find canidates for job openings.
+
+					p
+						| In order to being using ResumeFlow, you must have an account. If
+						| you currently do not have an account, 
+						u please contact your IT administrator 
+						| and they will create an account for you.
+
+					p
+						| Once you have an account, you may then proceed to log in by
+						| going to the 
+						a(href="/login") Login 
+						| page and entering your credentials where prompted.
+
+					p
+						| After successfully logging in, you may then proceed to begin
+						| entering records by going to the 
+						a(href="/entries") Data Entry 
+						| page and proceeding to fill out the form with the required
+						| information.
+
+					p
+						| Finally, when you are ready to search, you may go to the 
+						a(href="/search") Search 
+						| page and then perform whatever search queries you would like
+
+					p
+						| Thanks for using ResumeFlow!
+
+			div(class="row")
+				div(class="col-md-3 portfolio-item")
+					a(href="#")
+						img(class="img-responsive" src="img/resume.jpg" alt="")
+						h3
+							a(href="#") Resumes
+						p View all B&amp;D Consulting Resumes
+				div(class="col-md-3 portfolio-item")
+					a(href="#")
+						img(class="img-responsive" src="img/entry.jpg" alt="")
+						h3
+							a(href="/entries") Data Entry
+						p Manually enter resume data
+						
+				div(class="col-md-3 portfolio-item")
+					a(href="#")
+						img(class="img-responsive" src="img/search.jpg" alt="")
+						h3
+							a(href="/search") Search
+						p Search the resume repository
+				div(class="col-md-3 portfolio-item")
+					a(href="#")
+						img(class="img-responsive" src="img/login.jpg" alt="")
+						h3
+							a(href="/login") Log In
+						p Log in to ResumeFlow
+
+		include ../../partials/footer.jade			
+					

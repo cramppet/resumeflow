@@ -1,0 +1,78 @@
+doctype html
+html(lang="en")
+	include ../../partials/head.jade
+	body
+		include ../../partials/nav.jade
+	
+		div(class="container")
+			include ../../partials/title.jade
+		
+			div(class="row" id="controller")
+				div(class="panel panel-default panel-top-margin")
+					div(class="panel-heading")
+						p Data Entry Form
+					div(class="panel-body")
+						div(class="col-md-10 col-md-offset-1")
+							form
+								div(class="row")
+									div(class="form-group")
+										div(class="col-md-5")
+											label(for="first") First Name
+											input(type="text" class="form-control" name="first_name" id="first" placeholder="John")
+										div(class="col-md-2")
+											label(for="middle") MI
+											input(type="text" class="form-control" name="middle_name" id="middle" placeholder="Z")
+										div(class="col-md-5")
+											label(for="last") Last Name
+											input(type="text" class="form-control" name="last_name" id="last" placeholder="Hancock")
+											
+								div(class="row")
+									div(class="form-group")
+										div(class="col-md-6")
+											label(for="number") Phone Number
+											input(type="tel" class="form-control" name="phone_number" id="number" placeholder="012-345-6789")
+										div(class="col-md-6")
+											label(for="email") Email Address
+											input(type="email" class="form-control" name="email" id="email" placeholder="jhancock@example.com")
+											
+								div(class="row")
+									div(class="form-group")
+										div(class="col-md-6")
+											label(for="addr") Street Address
+											input(type="text" class="form-control" name="address" id="addr" placeholder="1234 Example Street")
+										div(class="col-md-4")
+											label(for="city") City
+											input(type="text" class="form-control" name="city" id="city" placeholder="Hagerstown")
+										div(class="col-md-2")
+											label(for="state") State
+											input(type="text" class="form-control" name="state" id="state" placeholder="MD")
+											
+								div(class="row")
+									div(class="form-group")
+										div(class="col-md-2")
+											label(for="type") Degree Level
+											input(type="text" class="form-control" name="degree_type" id="type" placeholder="B.S.")
+										div(class="col-md-4")
+											label(for="major") Field of Study
+											input(type="text" class="form-control" name="degree_major" id="major" placeholder="Computer Science")
+										div(class="col-md-6")
+											label(for="uni") University Name
+											input(type="text" class="form-control" name="university" id="uni" placeholder="Example University")
+
+								div(class="row")
+									div(class="form-group")
+										div(class="col-md-4")
+											label(for="skills") Skills (comma seperated, no spaces)
+											input(type="text" class="form-control" name="skills" id="skills" placeholder="C++,Java,NodeJS")
+										div(class="col-md-4")
+											label(for="keywords") Keywords (comma seperated, no spaces)
+											input(type="text" class="form-control" name="keywords" id="keywords" placeholder="DISA,Manager,CCNA,CCNP")
+										div(class="col-md-4")
+											label(for="resume") Attach a Resume document
+											input(type="file" class="form-control" name="resume_file" id="resume")
+											
+								div(class="row")
+									button(class="btn btn-lg btn-primary btn-block" type="button" onclick="submitForm(this.form)") Create Record
+
+		script(type="text/javascript" src="js/entrySubmit.js")
+		include ../../partials/footer.jade	

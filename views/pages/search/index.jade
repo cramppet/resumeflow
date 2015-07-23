@@ -1,0 +1,75 @@
+doctype html
+html(lang="en")
+	include ../../partials/head.jade
+	body
+		include ../../partials/nav.jade
+	
+		div(class="container")
+			include ../../partials/title.jade
+		
+			div(class="row")
+				div(class="panel panel-info panel-top-margin search-query-form")
+					div(class="panel-heading")
+						p Search The ResumeFlow Database
+					div(class="panel-body")
+						div(class="col-md-10 col-md-offset-1")
+							form
+								div(class="row")
+									div(class="form-group")
+										div(class="col-md-4")
+											label(for="firstname") First Name
+											input(type="name" class="form-control" name="first_name" id="firstname" placeholder="John")
+										div(class="col-md-4")
+											label(for="lastname") Last Name
+											input(type="name" class="form-control" name="last_name" id="lastname" placeholder="Hancock")
+										div(class="col-md-4")
+											label(for="degreelvl") Degree Type
+											input(class="form-control" name="degree_type" id="degreelvl" placeholder="BS")
+								
+								div(class="row")
+									div(class="form-group")
+										div(class="col-md-6")
+											label(for="keywords") Keywords (comma seperated, no spaces)
+											input(class="form-control" name="keywords" id="keywords" placeholder="ccna,itil,comptia")
+										div(class="col-md-6")
+											label(for="skills") Skills (comma seperated, no spaces)
+											input(class="form-control" name="skills" id="skills" placeholder="programming,networking")
+																																
+								div(class="row")
+									div(class="col-md-6")
+										button(class="btn btn-lg btn-primary btn-block" type="button" onclick="searchRecords(this.form)") Search Records
+									div(class="col-md-6")
+										button(class="btn btn-lg btn-default btn-block" type="button" onclick="viewAllRecords()") View All Records
+
+			div(class="row")
+				div(class="col-md-6 col-md-offset-3")
+					div(class="hidden search-focus-panel panel panel-default panel-top-margin")
+						div(class="panel-heading" id="search-focus-panel-title")
+						div(class="panel-body")
+							ul(class="list-group" id="search-focus-panel-body")
+							input(type="button" class="btn btn-default" value="Back to Results" onclick="returnToResults()")
+							input(type="button" id="downloadButton" class="btn btn-success pull-right" value="Download Resume" onclick="downloadResume()")
+
+			div(class="hidden search-results-container")
+				div(class="row")
+					div(class="panel panel-default")
+						div(class="panel-heading")
+							h4
+								| Search query results: 
+								span(id="resultCount") 
+								|  found 
+						table(class="table table-striped table-bordered table-condensed search-results table-hover")
+							thead
+								tr
+									th First Name
+									th Middle Name
+									th Last Name
+									th Email Address
+									th Degree Type
+									th Degree Major
+									th City
+									th State
+							tbody
+
+		script(type="text/javascript" src="js/searchSubmit.js")
+		include ../../partials/footer.jade

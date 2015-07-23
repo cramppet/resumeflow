@@ -1,0 +1,29 @@
+nav(class="navbar navbar-inverse navbar-fixed-top" role="navigation")
+			div(class="container")
+				div(class="navbar-header")
+					button(type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav")
+						span(class="sr-only") Toggle Navigation
+						span(class="icon-bar")
+						span(class="icon-bar")
+						span(class="icon-bar")
+					a(class="navbar-brand" href="/") ResumeFlow
+				div(class="collapse navbar-collapse" id="nav")
+					ul(class="nav navbar-nav")
+						li 
+							a(href="/entries") 
+								i.fa.fa-pencil-square-o  Data Entry
+						li 
+							a(href="/search")
+								i.fa.fa-search  Search Records
+						li
+							a(href="/admin")
+								i.fa.fa-users  Admin Panel
+
+						if auth === true
+							li
+								a(href="/logout")
+									i.fa.fa-sign-out  Log Out
+						else
+							li
+								a(href="/login")
+									i.fa.fa-sign-in  Log In
