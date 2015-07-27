@@ -2,7 +2,7 @@
   "name": "ResumeFlow",
   "version": "0.0.1",
   "description": "A central resume management and query application",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },

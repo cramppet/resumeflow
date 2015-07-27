@@ -1,8 +1,10 @@
+'use strict';
+
 var express       = require('express'),
   app             = express(),
   bodyParser      = require('body-parser'),
   multer          = require('multer'),
-  upload          = multer({ dest: 'data/' });
+  upload          = multer({ dest: 'data/' }),
   methodOverride  = require('express-method-override'),
   passport        = require('passport'),
   session         = require('express-session'),
@@ -45,7 +47,7 @@ function isAdmin(req, res, next) {
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.set('port', (process.env.PORT || 8080));
+app.set('port', (process.env.PORT || config.listeningPort || 8080));
 
 app.use(express.static(__dirname + '/public'));
 app.use(session({ secret: config.secret, resave: true, saveUninitialized: false }));
@@ -93,12 +95,38 @@ app.post('/login', passport.authenticate('local-login', {
   failureFlash: true
 }));
 
-app.post('/user', passport.authenticate('local-signup', {
-  successRedirect: '/admin',
-  failureRedirect: '/admin',
-  failureFlash: true
-}));
+// app.post('/user', passport.authenticate('local-signup', {
+//   successRedirect: '/admin',
+//   failureRedirect: '/admin',
+//   failureFlash: true
+// }));
 
 app.listen(app.get('port'), function() {
   console.log('ResumeFlow listening on port ', app.get('port'));
+});
+
+// Once we have successfully started, we want to check if the default admin
+// user has been created yet. If not, we will create it.
+
+user.findOne({ email: 'admin' }, function(err, foundUser) {
+  if (err)
+    console.log(err);
+
+  if (!foundUser) {
+    var defaultPassword  = 'admin';
+    var defaultUser      = new user();
+
+    // Standard admin, admin username password combo
+
+    defaultUser.email    = defaultPassword;
+    defaultUser.password = defaultUser.generateHash(defaultPassword);
+    defaultUser.admin    = true;
+
+    defaultUser.save(function(err) {
+      if (err)
+        console.log(err)
+      else
+        console.log('New administrative user \'admin\' created.');
+    });
+  }
 });

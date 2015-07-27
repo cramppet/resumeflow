@@ -16,3 +16,4 @@
 9. Add error reporting
 10. Remove previous jobs from entry data model
 11. Introduce log files
+12. Allow users to delete entries

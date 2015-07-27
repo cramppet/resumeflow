@@ -1,3 +1,5 @@
+'use strict';
+
 var searchResultsTable;
 var searchResultsContainer;
 var searchQueryForm;

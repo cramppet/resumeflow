@@ -1,3 +1,5 @@
+'use strict';
+
 function displayAlert(type, message) {
   var alertElement = $('<div class="animated fadeIn alert alert-' + type + ' alert-dismissible" role="alert">' +
                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +

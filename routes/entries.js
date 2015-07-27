@@ -1,3 +1,5 @@
+'use strict';
+
 var Entry   = require('../models/entry.js'),
   fs        = require('fs'),
   path      = require('path'),

@@ -1,3 +1,5 @@
+'use strict';
+
 var User = require('../models/user.js');
 
 module.exports.index = function(req, res) {
