@@ -13,31 +13,37 @@ html(lang="en")
 						p Search The ResumeFlow Database
 					div(class="panel-body")
 						div(class="col-md-10 col-md-offset-1")
-							form
+							form(id="searchForm")
 								div(class="row")
 									div(class="form-group")
-										div(class="col-md-4")
+										div(class="col-md-6")
 											label(for="firstname") First Name
-											input(type="name" class="form-control" name="first_name" id="firstname" placeholder="John")
-										div(class="col-md-4")
+											input(type="text" class="form-control" name="first_name" id="first_name" placeholder="John")
+										div(class="col-md-6")
 											label(for="lastname") Last Name
-											input(type="name" class="form-control" name="last_name" id="lastname" placeholder="Hancock")
-										div(class="col-md-4")
-											label(for="degreelvl") Degree Type
-											input(class="form-control" name="degree_type" id="degreelvl" placeholder="BS")
+											input(type="text" class="form-control" name="last_name" id="last_name" placeholder="Hancock")
+
+								div(class="row")
+									div(class="form-group")
+										div(class="col-md-6")
+											label(for="degree_type") Degree Type (comma seperated, no spaces)
+											input(type="text" class="form-control" name="degree_type" id="degree_type" placeholder="BS,MBA")
+										div(class="col-md-6")
+											label(for="degree_major") Degree Major (comma seperated, no spaces)
+											input(type="text" class="form-control" name="degree_major" id="degree_major" placeholder="Computer Science,Business Administration")
 								
 								div(class="row")
 									div(class="form-group")
 										div(class="col-md-6")
 											label(for="keywords") Keywords (comma seperated, no spaces)
-											input(class="form-control" name="keywords" id="keywords" placeholder="ccna,itil,comptia")
+											input(type="text" class="form-control" name="keywords" id="keywords" placeholder="ccna,itil,comptia")
 										div(class="col-md-6")
 											label(for="skills") Skills (comma seperated, no spaces)
-											input(class="form-control" name="skills" id="skills" placeholder="programming,networking")
+											input(type="text" class="form-control" name="skills" id="skills" placeholder="programming,networking")
 																																
 								div(class="row")
 									div(class="col-md-6")
-										button(class="btn btn-lg btn-primary btn-block" type="button" onclick="searchRecords(this.form)") Search Records
+										button(id="searchButton" class="btn btn-lg btn-primary btn-block" disabled type="button" onclick="searchRecords(this.form)") Search Records
 									div(class="col-md-6")
 										button(class="btn btn-lg btn-default btn-block" type="button" onclick="viewAllRecords()") View All Records
 
@@ -47,8 +53,19 @@ html(lang="en")
 						div(class="panel-heading" id="search-focus-panel-title")
 						div(class="panel-body")
 							ul(class="list-group" id="search-focus-panel-body")
-							input(type="button" class="btn btn-default" value="Back to Results" onclick="returnToResults()")
-							input(type="button" id="downloadButton" class="btn btn-success pull-right" value="Download Resume" onclick="downloadResume()")
+							div(class="row")
+								div(class="col-md-2 col-sm-12")
+									input(type="button" class="btn btn-default btn-block" value="Back" onclick="returnToResults()")
+								div(class="col-md-4 col-sm-12")
+									input(type="button" class="btn btn-default btn-block" value="Save/Upload" onclick="saveChanges()")
+								div(class="col-md-6 col-sm-12")
+									input(type="button" id="downloadButton" class="btn btn-success btn-block" value="Download Resume" onclick="downloadResume()")
+							div(class="row")
+								div(class="col-md-12 col-sm-12")
+									span(class="btn btn-block btn-default btn-file")
+										| Upload New Resume
+										input(id="newResumeFile" type="file")
+
 
 			div(class="hidden search-results-container")
 				div(class="row")

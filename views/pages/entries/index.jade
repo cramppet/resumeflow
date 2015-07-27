@@ -16,13 +16,13 @@ html(lang="en")
 							form
 								div(class="row")
 									div(class="form-group")
-										div(class="col-md-5")
+										div(class="col-md-5" id="first_name_error")
 											label(for="first") First Name
-											input(type="text" class="form-control" name="first_name" id="first" placeholder="John")
+											input(type="text" class="form-control" name="first_name" id="first" placeholder="John") 
 										div(class="col-md-2")
 											label(for="middle") MI
 											input(type="text" class="form-control" name="middle_name" id="middle" placeholder="Z")
-										div(class="col-md-5")
+										div(class="col-md-5" id="last_name_error")
 											label(for="last") Last Name
 											input(type="text" class="form-control" name="last_name" id="last" placeholder="Hancock")
 											
@@ -31,7 +31,7 @@ html(lang="en")
 										div(class="col-md-6")
 											label(for="number") Phone Number
 											input(type="tel" class="form-control" name="phone_number" id="number" placeholder="012-345-6789")
-										div(class="col-md-6")
+										div(class="col-md-6" id="email_error")
 											label(for="email") Email Address
 											input(type="email" class="form-control" name="email" id="email" placeholder="jhancock@example.com")
 											
@@ -46,25 +46,30 @@ html(lang="en")
 										div(class="col-md-2")
 											label(for="state") State
 											input(type="text" class="form-control" name="state" id="state" placeholder="MD")
-											
-								div(class="row")
-									div(class="form-group")
-										div(class="col-md-2")
-											label(for="type") Degree Level
-											input(type="text" class="form-control" name="degree_type" id="type" placeholder="B.S.")
-										div(class="col-md-4")
-											label(for="major") Field of Study
-											input(type="text" class="form-control" name="degree_major" id="major" placeholder="Computer Science")
-										div(class="col-md-6")
-											label(for="uni") University Name
-											input(type="text" class="form-control" name="university" id="uni" placeholder="Example University")
+								
+								div(id="degreeContainer")
+									div(class="row")
+										div(class="form-group")
+											div(class="col-md-2")
+												label(for="type") Degree Level
+												input(type="text" class="form-control" name="degree_type" id="type" placeholder="B.S.")
+											div(class="col-md-3")
+												label(for="major") Field of Study
+												input(type="text" class="form-control" name="degree_major" id="major" placeholder="Computer Science")
+											div(class="col-md-6")
+												label(for="uni") University Name
+												input(type="text" class="form-control" name="university" id="uni" placeholder="Example University")
+											div(class="col-md-1")
+												label(for="addDegree") &nbsp;
+												button(id="addDegree" type="button" class="form-control btn btn-success btn-block" onclick="addDegreeRow()")
+													i.fa.fa-plus
 
 								div(class="row")
 									div(class="form-group")
-										div(class="col-md-4")
+										div(class="col-md-4" id="skills_error")
 											label(for="skills") Skills (comma seperated, no spaces)
 											input(type="text" class="form-control" name="skills" id="skills" placeholder="C++,Java,NodeJS")
-										div(class="col-md-4")
+										div(class="col-md-4" id="keywords_error")
 											label(for="keywords") Keywords (comma seperated, no spaces)
 											input(type="text" class="form-control" name="keywords" id="keywords" placeholder="DISA,Manager,CCNA,CCNP")
 										div(class="col-md-4")

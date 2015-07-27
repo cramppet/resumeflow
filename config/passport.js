@@ -12,6 +12,8 @@ module.exports = function(passport) {
     });
   });
 
+// Make sure to remove 'auto-signin'
+
   passport.use('local-signup', new LocalStrategy({
     usernameField: 'email', passwordField: 'password', passReqToCallback: true
   }, function(req, email, password, done) {
@@ -33,7 +35,6 @@ module.exports = function(passport) {
               throw err;
             }
             
-            req.session.uid = user._id;
             return done(null, newUser);
           });
         }

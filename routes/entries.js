@@ -1,13 +1,15 @@
-var Entry = require('../models/entry.js'),
-  fs = require('fs'),
-  path = require('path'),
-  busboy = require('connect-busboy'),
-  config = require('../config/global.js');
+var Entry   = require('../models/entry.js'),
+  fs        = require('fs'),
+  path      = require('path'),
+  config    = require('../config/global.js');
 
 function transformCSV(csv) {
-  if (csv)
+  if (csv && csv.indexOf(',') !== -1)
     return csv.split(',');
-  return null;
+  else if (csv && csv.indexOf(',') === -1)
+    return [csv];
+  else
+    return null;
 }
 
 module.exports.index = function(req, res) {
@@ -18,8 +20,10 @@ module.exports.createEntry = function(req, res) {
   /* TODO: Perform input validation on user-submitted data */
 
   Entry.findOne({ email: req.body.email }, function(err, entry) {
-    if (err)
+    if (err) {
+      console.log(err);
       res.json({ message: err.message });
+    }
 
     else if (entry)
       res.json({ message: 'A user already exists with that email.' });
@@ -27,24 +31,24 @@ module.exports.createEntry = function(req, res) {
     else {
       var newEntry = new Entry();
 
-      newEntry.first_name     = req.body.first_name;
-      newEntry.middle_name    = req.body.middle_name;
-      newEntry.last_name      = req.body.last_name;
-      newEntry.email          = req.body.email;
-      newEntry.phone_number   = req.body.phone_number;
-      newEntry.address        = req.body.address;
-      newEntry.city           = req.body.city;
-      newEntry.state          = req.body.state;
-      newEntry.degree_type    = req.body.degree_type;
-      newEntry.degree_major   = req.body.degree_major;
-      newEntry.university     = req.body.university;
+      newEntry.first_name     = (req.body.first_name    ? req.body.first_name   : 'N/A');
+      newEntry.middle_name    = (req.body.middle_name   ? req.body.middle_name  : 'N/A');
+      newEntry.last_name      = (req.body.last_name     ? req.body.last_name    : 'N/A');
+      newEntry.email          = (req.body.email         ? req.body.email        : 'N/A');
+      newEntry.phone_number   = (req.body.phone_number  ? req.body.phone_number : 'N/A');
+      newEntry.address        = (req.body.address       ? req.body.address      : 'N/A');
+      newEntry.city           = (req.body.city          ? req.body.city         : 'N/A');
+      newEntry.state          = (req.body.state         ? req.body.state        : 'N/A');
+      newEntry.degrees        = req.body.degrees;
       newEntry.skills         = transformCSV(req.body.skills);
       newEntry.keywords       = transformCSV(req.body.keywords);
       newEntry.previous_jobs  = transformCSV(req.body.previous_jobs);
 
       newEntry.save(function(err) {
-        if (err)
+        if (err) {
+          console.log(err);
           res.json({ message: err.message });
+        }
 
         else {
           res.json({ message: 'Entry successfully created.', id: newEntry._id });
@@ -56,8 +60,10 @@ module.exports.createEntry = function(req, res) {
 
 module.exports.deleteEntry = function(req, res) {
   Entry.findOneAndRemove({ _id: req.params.id }, function(err) {
-    if (err)
+    if (err) {
+      console.log(err);
       res.json({ message: err.message });
+    }
 
     else
       res.json({ message: 'Entry successfully deleted.' });
@@ -72,24 +78,24 @@ module.exports.updateEntry = function(req, res) {
       res.json({ message: err.message });
 
     else {
-      entry.first_name    = (req.body.first_name ? req.body.first_name : entry.first_name);
-      entry.middle_name   = (req.body.middle_name ? req.body.first_name : entry.middle_name);
-      entry.last_name     = (req.body.last_name ? req.body.first_name : entry.last_name);
-      entry.email         = (req.body.email ? req.body.first_name : entry.email);
-      entry.phone_number  = (req.body.phone_number ? req.body.first_name : entry.phone_number);
-      entry.address       = (req.body.address ? req.body.first_name : entry.address);
-      entry.city          = (req.body.city ? req.body.first_name : entry.city);
-      entry.state         = (req.body.state ? req.body.first_name : entry.state);
-      entry.degree_type   = (req.body.degree_type ? req.body.first_name : entry.degree_type);
-      entry.degree_major  = (req.body.degree_major ? req.body.first_name : entry.degree_major);
-      entry.university    = (req.body.university ? req.body.first_name : entry.university);
-      entry.skills        = transformCSV(req.body.skills ? req.body.skills : entry.skills);
-      entry.keywords      = transformCSV(req.body.keywords ? req.body.keywords : entry.keywords);
+      entry.first_name    = (req.body.first_name                ? req.body.first_name    : entry.first_name);
+      entry.middle_name   = (req.body.middle_name               ? req.body.middle_name   : entry.middle_name);
+      entry.last_name     = (req.body.last_name                 ? req.body.last_name     : entry.last_name);
+      entry.email         = (req.body.email                     ? req.body.email         : entry.email);
+      entry.phone_number  = (req.body.phone_number              ? req.body.phone_number  : entry.phone_number);
+      entry.address       = (req.body.address                   ? req.body.address       : entry.address);
+      entry.city          = (req.body.city                      ? req.body.city          : entry.city);
+      entry.state         = (req.body.state                     ? req.body.state         : entry.state);
+      entry.degrees       = (req.body.degrees                   ? req.body.degrees       : entry.degrees);
+      entry.skills        = transformCSV(req.body.skills        ? req.body.skills        : entry.skills);
+      entry.keywords      = transformCSV(req.body.keywords      ? req.body.keywords      : entry.keywords);
       entry.previous_jobs = transformCSV(req.body.previous_jobs ? req.body.previous_jobs : entry.previous_jobs);
 
       entry.save(function(err) {
-        if (err)
+        if (err) {
+          console.log(err);
           res.json({ message: err.message });
+        }
 
         else
           res.json({ message: 'Entry successfully updated.' });
@@ -99,42 +105,70 @@ module.exports.updateEntry = function(req, res) {
 };
 
 module.exports.getEntriesByQuery = function(req, res) {
-  /* TODO: Properly parse 'previous jobs' parameters */
   /* TODO: Perform input validation on user-submitted data */
 
-  if (req.query.keywords) {
-    var keywords = transformCSV(req.query.keywords);
-    req.query.keywords = { $in: keywords };
+  var first_name   = (req.query.first_name   ? req.query.first_name   : null);
+  var last_name    = (req.query.last_name    ? req.query.last_name    : null);
+  var degree_type  = (req.query.degree_type  ? req.query.degree_type  : null);
+  var degree_major = (req.query.degree_major ? req.query.degree_major : null);
+  var skills       = (req.query.skills       ? req.query.skills       : null);
+  var keywords     = (req.query.keywords     ? req.query.keywords     : null);
+  var final_query  = {};
+
+  // Skills and Keywords query parsing
+
+  if (skills && keywords) {
+    final_query['$or'] = [
+      { skills:   { $in: transformCSV(skills)   }},
+      { keywords: { $in: transformCSV(keywords) }}
+    ];
   }
 
-  else if (req.query.keywords === '') {
-    delete req.query.keywords;
+  else if (skills) {
+    final_query['skills']   = { $in: transformCSV(skills) };
   }
 
-  if (req.query.skills) {
-    var skills = transformCSV(req.query.skills);
-    req.query.skills = { $in: skills };
+  else if (keywords) {
+    final_query['keywords'] = { $in: transformCSV(keywords) };
   }
 
-  else if (req.query.skills === '') {
-    delete req.query.skills;
+  // Degree type and major query parsing
+
+  if (degree_type && degree_major) {
+    final_query['$and'] = [
+      { 'degrees.degree_type' : { $in: transformCSV(degree_type) } },
+      { 'degrees.degree_major': { $in: transformCSV(degree_major) } } 
+    ];
   }
 
-  if (req.query.first_name === '') {
-    delete req.query.first_name;
+  else if (degree_type) {
+    final_query['degrees.degree_type'] = { $in: transformCSV(degree_type) };
   }
 
-  if (req.query.last_name === '') {
-    delete req.query.last_name;
+  else if (degree_major) {
+    final_query['degrees.degree_major'] = { $in: transformCSV(degree_major) };
   }
 
-  if (req.query.degree_type === '') {
-    delete req.query.degree_type;
+  // Build up the first and last name query objects
+
+  if (first_name && last_name) {
+    final_query['first_name'] = first_name;
+    final_query['last_name']  = last_name;
   }
 
-  Entry.find(req.query, function(err, entry) {
-    if (err)
+  else if (first_name) {
+    final_query['first_name'] = first_name;
+  }
+
+  else if (last_name) {
+    final_query['last_name']  = last_name;
+  }
+
+  Entry.find(final_query, function(err, entry) {
+    if (err) {
+      console.log(err);
       res.json({ message: err.message });
+    }
 
     else
       res.json(entry);
@@ -143,8 +177,10 @@ module.exports.getEntriesByQuery = function(req, res) {
 
 module.exports.getEntryById = function(req, res) {
   Entry.findOne({ _id: req.params.id }, function(err, entry) {
-    if (err)
+    if (err) {
+      console.log(err);
       res.json({ message: err.message });
+    }
 
     else if (!entry)
       res.json({ message: 'No entry with the id provided can be found.' });
@@ -167,8 +203,10 @@ module.exports.uploadDocument = function(req, res) {
         config.fileUploadPath + newFilename,
       function() {
         Entry.findOne({ _id: req.params.id }, function(err, foundEntry) {
-          if (err)
+          if (err) {
+            console.log(err);
             res.json({ message: err.message });
+          }
 
           else if (!foundEntry)
             res.json({ message: 'Could not find entry to upload to' });
@@ -176,8 +214,10 @@ module.exports.uploadDocument = function(req, res) {
           else {
             foundEntry.resume_file = config.fileUploadPath + newFilename;
             foundEntry.save(function(err) {
-              if (err)
+              if (err) {
+                console.log(err);
                 res.json({ message: err.message });
+              }
               else
                 res.json({ message: 'Entry successfully created. '});
             });
@@ -189,8 +229,10 @@ module.exports.uploadDocument = function(req, res) {
 
 module.exports.downloadDocument = function(req, res) {
   Entry.findOne({ _id: req.params.id }, function(err, foundEntry) {
-    if (err)
+    if (err) {
+      console.log(err);
       res.json({ message: err.message });
+    }
 
     else {
       if (!foundEntry.resume_file)
