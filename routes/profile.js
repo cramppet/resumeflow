@@ -9,25 +9,24 @@ module.exports.index = function(req, res) {
 module.exports.updateUser = function(req, res) {
   User.findOne({ _id: req.session.uid }, function(err, foundUser) {
     if (err) {
+      console.log(err);
       res.json({ message: err.message });
     }
 
     else {
-      var newEmail = (req.body.email ? req.body.email : foundUser.email);
-      var newPassword = foundUser.password;
-
-      if (req.body.password)
-        newPassword = foundUser.generateHash(req.body.password);
-
-      foundUser.email = newEmail;
-      foundUser.password = newPassword;
+      if (req.body.password) {
+        foundUser.password = foundUser.generateHash(req.body.password);
+      }
 
       foundUser.save(function(err) {
-        if (err)
+        if (err) {
+          console.log(err);
           res.json({ message: err.message });
+        }
 
-        else
+        else {
           res.json({ message: 'User updated successfully.' });
+        }
       });
     }
   });

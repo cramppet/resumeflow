@@ -80,18 +80,18 @@ module.exports.updateEntry = function(req, res) {
       res.json({ message: err.message });
 
     else {
-      entry.first_name    = (req.body.first_name                ? req.body.first_name    : entry.first_name);
-      entry.middle_name   = (req.body.middle_name               ? req.body.middle_name   : entry.middle_name);
-      entry.last_name     = (req.body.last_name                 ? req.body.last_name     : entry.last_name);
-      entry.email         = (req.body.email                     ? req.body.email         : entry.email);
-      entry.phone_number  = (req.body.phone_number              ? req.body.phone_number  : entry.phone_number);
-      entry.address       = (req.body.address                   ? req.body.address       : entry.address);
-      entry.city          = (req.body.city                      ? req.body.city          : entry.city);
-      entry.state         = (req.body.state                     ? req.body.state         : entry.state);
-      entry.degrees       = (req.body.degrees                   ? req.body.degrees       : entry.degrees);
-      entry.skills        = transformCSV(req.body.skills        ? req.body.skills        : entry.skills);
-      entry.keywords      = transformCSV(req.body.keywords      ? req.body.keywords      : entry.keywords);
-      entry.previous_jobs = transformCSV(req.body.previous_jobs ? req.body.previous_jobs : entry.previous_jobs);
+      entry.first_name    = req.body.first_name;
+      entry.middle_name   = req.body.middle_name;
+      entry.last_name     = req.body.last_name;
+      entry.email         = req.body.email;
+      entry.phone_number  = req.body.phone_number;
+      entry.address       = req.body.address;
+      entry.city          = req.body.city;
+      entry.state         = req.body.state;
+      entry.degrees       = req.body.degrees;
+      entry.skills        = transformCSV(req.body.skills);
+      entry.keywords      = transformCSV(req.body.keywords);
+      entry.previous_jobs = transformCSV(req.body.previous_jobs);
 
       entry.save(function(err) {
         if (err) {
@@ -99,8 +99,9 @@ module.exports.updateEntry = function(req, res) {
           res.json({ message: err.message });
         }
 
-        else
+        else {
           res.json({ message: 'Entry successfully updated.' });
+        }
       });
     }
   });
@@ -184,11 +185,13 @@ module.exports.getEntryById = function(req, res) {
       res.json({ message: err.message });
     }
 
-    else if (!entry)
+    else if (!entry) {
       res.json({ message: 'No entry with the id provided can be found.' });
+    }
 
-    else
+    else {
       res.json(entry);
+    }
   });
 };
 
@@ -237,8 +240,9 @@ module.exports.downloadDocument = function(req, res) {
     }
 
     else {
-      if (!foundEntry.resume_file)
+      if (!foundEntry.resume_file) {
         res.json({ message: 'No resume has been uploaded for that entry.' });
+      }
 
       else {
         res.download(foundEntry.resume_file);

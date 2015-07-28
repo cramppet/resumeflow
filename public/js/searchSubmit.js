@@ -311,3 +311,19 @@ function removeDegreeRow(caller) {
   var containingRow = $(caller).closest('tr');
   containingRow.remove();
 }
+
+function deleteEntry() {
+  if (selectedEntry && window.confirm("Are you sure you want to delete this entry?")) {
+    $.ajax({
+      url: '/entries/' + selectedEntry._id,
+      type: 'DELETE'
+    })
+    .done(function(response) {
+      returnToResults();
+      displayAlert('success', 'Successfully deleted entry!');
+    })
+    .fail(function(jqXHR, textStatus) {
+      displayAlert('danger', 'Could not delete entry: ' + textStatus);
+    });
+  }
+}

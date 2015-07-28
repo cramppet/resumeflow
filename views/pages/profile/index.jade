@@ -1,0 +1,31 @@
+doctype html
+html(lang="en")
+  include ../../partials/head.jade
+  body
+    include ../../partials/nav.jade
+  
+    div(class="container")
+      include ../../partials/title.jade
+
+      div(class="row")
+        div(class="col-md-8 col-md-offset-2")
+          div(class="panel panel-default panel-top-margin")
+            div(class="panel-heading")
+              p My Account
+            div(class="panel-body")
+              h4 Change Your Password:
+              div(class="row")
+                div(class="form-group")
+                  div(class="col-md-6")
+                    label(for="newPassword") New Password:
+                    input(id="newPassword" class="form-control" type="password" placeholder="New Password")
+                  div(class="col-md-6")
+                    label(for="confirmPassword") Confirm New Password:
+                    input(id="confirmPassword" class="form-control" type="password" placeholder="Confirm Password")
+              div(class="row")
+                div(class="col-md-10 col-md-offset-1")
+                  button(id="savePassword" onclick="updatePassword()" disabled class="btn btn-block btn-primary")
+                    | Update Password
+
+    script(type="text/javascript" src="js/profile.js")
+    include ../../partials/footer.jade

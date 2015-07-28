@@ -13,6 +13,7 @@
     "connect-flash": "^0.1.1",
     "express": "~4.9.x",
     "express-method-override": "0.0.3",
+    "express-session": "^1.11.3",
     "jade": "~1.11.x",
     "mongoose": "~4.0.x",
     "multer": "^1.0.1",

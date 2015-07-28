@@ -1,7 +1,7 @@
-var LocalStrategy = require('passport-local').Strategy, User = require('../models/user.js');
+var LocalStrategy = require('passport-local').Strategy,
+    User          = require('../models/user.js');
 
 module.exports = function(passport) {
-
   passport.serializeUser(function(user, done) {
     done(null, user.id);
   });
@@ -12,18 +12,19 @@ module.exports = function(passport) {
     });
   });
 
-// Make sure to remove 'auto-signin'
-
   passport.use('local-signup', new LocalStrategy({
     usernameField: 'email', passwordField: 'password', passReqToCallback: true
   }, function(req, email, password, done) {
     process.nextTick(function() {
       User.findOne({ 'email': email }, function(err, user) {
-        if (err) 
+        if (err) {
+          console.log(err);
           return done(err);
+        }
 
-        if (user) 
+        if (user) {
           return done(null, false, req.flash('signupMessage', 'Email already in use!'));
+        }
 
         else {
           var newUser = new User();
@@ -32,6 +33,7 @@ module.exports = function(passport) {
 
           newUser.save(function(err) {
             if (err) {
+              console.log(err);
               throw err;
             }
             
@@ -46,8 +48,9 @@ module.exports = function(passport) {
     usernameField: 'email', passwordField: 'password', passReqToCallback: true
   }, function(req, email, password, done) {
     User.findOne({ 'email': email }, function(err, user) {
-      if (err) 
+      if (err) {
         return done(err);
+      }
 
       if (!user) {
         return done(null, false, req.flash('loginMessage', 'No user found.'));

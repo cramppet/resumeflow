@@ -65,6 +65,7 @@ app.get('/login',           loginPage.index);
 app.get('/logout',          logoutPage.logoutUser);
 
 app.get('/admin',           isAdmin, adminPage.index);
+app.post('/user',           isAdmin, adminPage.createUser);
 app.get('/users',           isAdmin, adminPage.getUsers);
 app.delete('/user/:id',     isAdmin, adminPage.deleteUser);
 app.put('/user/:id',        isLoggedIn, adminPage.updateUser);

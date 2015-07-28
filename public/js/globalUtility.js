@@ -1,6 +1,6 @@
 'use strict';
 
-function displayAlert(type, message) {
+function displayAlert(type, message, callback) {
   var alertElement = $('<div class="animated fadeIn alert alert-' + type + ' alert-dismissible" role="alert">' +
                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                        '<span aria-hidden="true">&times;</span></button>' +
@@ -13,6 +13,10 @@ function displayAlert(type, message) {
     alertElement.addClass('fadeOut');
     window.setTimeout(function() {
       alertElement.remove();
+      
+      if (callback) {
+        callback();
+      }
     }, 500);
   }, 2000);
 }
