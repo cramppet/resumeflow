@@ -5,9 +5,9 @@ var mongoose = require('mongoose'),
   db = require('../config/db.js');
 
 var userSchema = mongoose.Schema({
-  email: String,
-  password: String,
-  admin: Boolean
+  email    : String,
+  password : String,
+  admin    : Boolean
 });
 
 userSchema.methods.generateHash = function(password) {
