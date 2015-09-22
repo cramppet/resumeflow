@@ -1,4 +1,4 @@
-#ResumeFlow - B&D Consulting Resume Repository
+#ResumeFlow - Resume Repository
 
 ##Project Scope
 
